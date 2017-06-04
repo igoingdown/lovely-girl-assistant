@@ -12,11 +12,15 @@
             <img src="~assets/bot-header.jpeg">
           </div>
           <div class="chat-date">
-            {{12 - index}} minutes ago
+            {{ele.time | time}}
           </div>
           <div class="chat-message">
             <p>
-              {{ele}}
+              {{ele.text}}
+              <template v-if="ele.url">
+                <br>
+                <a :href="ele.url" style="color: #ffffff;text-decoration: underline;" target="_blank">点此查看</a>
+              </template>
             </p>
           </div>
         </div>
@@ -27,11 +31,11 @@
             <img src="http://7xoxxe.com1.z0.glb.clouddn.com/2017-06-04-022819.jpg">
           </div>
           <div class="chat-date">
-            4 minutes ago
+            {{ele.time | time}}
           </div>
           <div class="chat-message">
             <p>
-              {{ele}}
+              {{ele.text}}
             </p>
           </div>
         </div>
@@ -42,7 +46,7 @@
         <div class="switch-ovice" @click="isShowVoice = true">
           <i class="iconfont icon-voice1"></i>
         </div>
-        <input class="input" placeholder="Ask me anything" v-model="message">
+        <input @keyup.enter="addMessage" class="input" placeholder="Ask me anything" v-model="message">
         <button class="send-text" @click="addMessage">发送</button>
       </template>
       <template v-if="isShowVoice">
@@ -62,9 +66,10 @@
 
 <script>
 import { Loading, Toast } from 'quasar'
-import api from '../networks/api'
+import axios from 'axios'
+import moment from 'moment'
 
-console.log(api)
+moment.locale('zh-cn')
 
 const recorder = new window.Recorder({
   sampleRate: 44100,
@@ -78,18 +83,16 @@ export default {
       isRecording: false,
       message: '',
       messageList: [
-        '你好~我是Moe~',
-        '你好，我是John',
-        '嘻嘻~',
-        '今天的天气怎么样',
-        '今天的天气：武汉 34°晴'
+        {
+          text: '你好~我是Moe~',
+          time: Date.now()
+        }
       ]
     }
   },
   filters: {
     time (value) {
-      console.log(value)
-      return value
+      return moment(value).fromNow()
     }
   },
   methods: {
@@ -116,10 +119,46 @@ export default {
       })
     },
     addMessage () {
-      this.messageList.push(this.message)
-      this.message = ''
-      this.messageList.push('Hello~')
+      const url = '/openapi/api'
+      const key = '34a937c951c84cb3aaa855e54fda653e'
+      this.messageList.push({
+        text: this.message,
+        time: Date.now()
+      })
+      this.$nextTick(() => {
+        this.message = ''
+      })
+      axios.post(url, {
+        key,
+        info: this.message
+      })
+      .then(res => res.data)
+      .then(data => {
+        this.messageList.push({
+          text: data.text,
+          time: Date.now(),
+          url: data.url || ''
+        })
+        this.$nextTick(() => {
+          const content = document.querySelector('.layout-content')
+          content.scrollTop = 9999999
+        })
+      })
+      .catch(e => {
+        Toast.create.negative('出错了，请稍后重试')
+      })
+      this.$nextTick(() => {
+        const content = document.querySelector('.layout-content')
+        content.scrollTop = 9999999
+      })
     }
+  },
+  mounted () {
+    setInterval(() => {
+      this.messageList.forEach((data) => {
+        data.time += 1
+      })
+    }, 5000)
   }
 }
 </script>
