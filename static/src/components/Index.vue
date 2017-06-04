@@ -79,6 +79,7 @@ export default {
       messageList: [
         '你好~我是Moe~',
         '你好，我是John',
+        '嘻嘻~',
         '今天的天气怎么样',
         '今天的天气：武汉 34°晴'
       ]
