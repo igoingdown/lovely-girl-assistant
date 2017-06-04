@@ -42,8 +42,8 @@
         <div class="switch-ovice" @click="isShowVoice = true">
           <i class="iconfont icon-voice1"></i>
         </div>
-        <input class="input" placeholder="Ask me anything">
-        <button class="send-text">发送</button>
+        <input class="input" placeholder="Ask me anything" v-model="message">
+        <button class="send-text" @click="addMessage">发送</button>
       </template>
       <template v-if="isShowVoice">
         <div class="switch-ovice" @click="isShowVoice = false">
@@ -76,6 +76,7 @@ export default {
     return {
       isShowVoice: false,
       isRecording: false,
+      message: '',
       messageList: [
         '你好~我是Moe~',
         '你好，我是John',
@@ -113,6 +114,11 @@ export default {
       recorder.getBlob(blob => {
         console.log(blob)
       })
+    },
+    addMessage () {
+      this.messageList.push(this.message)
+      this.message = ''
+      this.messageList.push('Hello~')
     }
   }
 }
