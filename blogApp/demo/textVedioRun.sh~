@@ -1,0 +1,4 @@
+com='"'
+text=$com$(cat bin/source.txt)$com
+echo $text
+./bin/demo $(cat bin/source.txt)
