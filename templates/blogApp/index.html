@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+<h1>{{ welcome }}</h1>
+{% for item in items %}
+<h3> {{ item.title }} </h3>
+    <p>{{item.body}}</p>
+    <br/>
+{% endfor %}
+
+{% for i in image_urls %}
+<img src="{{ i }}">
+{% endfor %}
+
+</body>
+</html>
+

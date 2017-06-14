@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>imugr</title>
+</head>
+<body>
+    {% for i in images %}
+    <img src="{{ i.body }}">
+    {% empty %}
+    <h1>目前没有图片</h1>
+    {% endfor %}
+</body>
+</html>
