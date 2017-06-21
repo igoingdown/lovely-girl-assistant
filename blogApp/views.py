@@ -36,8 +36,19 @@ def index(request):
     return render(request, 'blogApp/index.html', context={'title': '我的博客首页',
                                                           'welcome': '欢迎来到我的博客首页',
                                                           'items': tag_lists,
-                                                          'image_urls': crawler.image_url_list,
+                                                      'image_urls': crawler.image_url_list,
                                                           })
+
+def add(request):
+    return render(request, 'blogApp/ajax_test.html')
+
+
+def before_add(request):
+    a = request.GET['a']
+    b = request.GET['b']
+    c = int(a)
+    d = int(b)
+    return HttpResponse(str(c + d))
 
 
 def show_blogs(request):
