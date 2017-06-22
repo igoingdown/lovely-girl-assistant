@@ -1,25 +1,43 @@
 <!DOCTYPE html>
 <html>
 <body>
-<p>请输入两个数字</p>
-<form action="/add/" method="get">
-    a: <input type="text" id="a" name="a"> <br>
-    b: <input type="text" id="b" name="b"> <br>
-    <p>result: <span id='result'></span></p>
-    <button type="button" id='sum'>提交</button>
+<form method="post" id="formadd">
+    {% csrf_token %}
+    <label for="id_name">用户名</label>
+    <input type="text" id="id_name"/>
+    <label for = "id_password">密码</label>
+    <input type="password" id="id_password"/>
+    <button type="submit" id="submit" >提交</button>
 </form>
+
 <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
-    $(document).ready(function(){
-      $("#sum").click(function(){
-        var a = $("#a").val();
-        var b = $("#b").val();
 
-        $.get("/add/",{'a':a,'b':b}, function(ret){
-            $('#result').html(ret)
-        })
-      });
-    });
+        $(document).ready(function(){
+            $.ajaxSetup({
+                 data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+        $('#formadd').submit(function(){
+                var name = $("#id_name").val();                 //获得form中用户输入的name 注意这里的id_name 与你html中的id一致
+                var password = $("#id_password").val();    //同上
+
+                $.ajax({
+                    type:"POST",
+                    data: {name:name, password:password},
+                    url: "{% url 'comments_upload' %}", //后台处理函数的url 这里用的是static url 需要与urls.py中的name一致
+                    cache: false,
+                    dataType: "html",
+                    success: function(result, statues, xml){
+                        alert(result);                                         //成功时弹出view传回来的结果
+                    },
+                    error: function(){
+                        alert("false");
+                    }
+                });
+                return false;
+            });
+
+        });
 </script>
 </body>
 </html>

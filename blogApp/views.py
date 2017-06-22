@@ -39,16 +39,19 @@ def index(request):
                                                       'image_urls': crawler.image_url_list,
                                                           })
 
-def add(request):
+def show_ajax_test_form(request):
     return render(request, 'blogApp/ajax_test.html')
 
 
-def before_add(request):
-    a = request.GET['a']
-    b = request.GET['b']
-    c = int(a)
-    d = int(b)
-    return HttpResponse(str(c + d))
+def comments_upload(request):
+    if request.method == 'POST':
+        print "it's a test"  # 用于测试
+        print request.POST['name']  # 测试是否能够接收到前端发来的name字段
+        print request.POST['password']  # 用途同上
+
+        return HttpResponse("表单测试成功")  # 最后返会给前端的数据，如果能在前端弹出框中显示我们就成功了
+    else:
+        return HttpResponse("<h1>test</h1>")
 
 
 def show_blogs(request):

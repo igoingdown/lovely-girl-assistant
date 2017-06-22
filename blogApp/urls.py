@@ -10,6 +10,6 @@ urlpatterns = [
     url(r'^blogApp/train_ticket', views.stores, name='train'),
     url(r'^blogApp/flight', views.flight, name='flight'),
     url(r'^images', views.show_images, name="show iamges"),
-    url(r'^add_test', views.before_add, name="show index"),
-    url(r'^add/$', views.add, name="add"),
+    url(r'^comments_upload/$', views.comments_upload, name="comments_upload"),
+    url(r'^ajax_test/$', views.show_ajax_test_form, name="add"),
 ]
