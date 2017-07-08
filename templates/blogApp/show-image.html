@@ -5,10 +5,48 @@
     <title>imugr</title>
 </head>
 <body>
-    {% for i in images %}
+    <div class="pagination">
+        <br>
+            {% if imags.has_previous %}
+                <li><a href="/images?p={{ post_list.previous_page_num }}">上一页</a></li>
+            {% endif %}
+
+            {% for num in images.paginator.page_num_range %}
+                {% if num == images.num %}
+                    <li><a href="/images?p={{ num }}" style="font-size: 33px">{{ num }}</a></li>
+                {% else %}
+                    <li><a href="/images?p={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if images.has_next %}
+                <li><a href="/images?p={{ images.next_page_num }}">下一页</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    {% for i in images.object_list %}
     <img src="{{ i.body }}">
+    <a> {{ i.body }} </a>
     {% empty %}
     <h1>目前没有图片</h1>
     {% endfor %}
+
+    <div class="pagination">
+        <ul>
+            {% if images.has_previous %}
+                <li><a href="/images?p={{ images.previous_page_num }}">上一页</a></li>
+            {% endif %}
+
+            {% for num in images.paginator.page_num_range %}
+                {% if num == images.num %}
+                    <li><a href="/images?p={{ num }}" style="font-size: 33px">{{ num }}</a></li>
+                {% else %}
+                    <li><a href="/images?p={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if images.has_next %}
+                <li><a href="/images?p={{ images.next_page_num }}">下一页</a></li>
+            {% endif %}
+        </ul>
+    </div>
 </body>
 </html>

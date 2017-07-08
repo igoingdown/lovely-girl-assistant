@@ -78,7 +78,7 @@
     <div class="container">
         <div class="row">
             <main class="col-md-8">
-                {% for p in post_list %}
+                {% for p in post_list.object_list %}
                     <article class="post post- {{p.pk}}">
                         <header class="entry-header">
                             <h1 class="entry-title">
@@ -115,15 +115,20 @@
                 -->
                 <div class="pagination">
                     <ul>
-                        <li><a href="">1</a></li>
-                        <li><a href="">...</a></li>
-                        <li><a href="">4</a></li>
-                        <li><a href="">5</a></li>
-                        <li class="current"><a href="">6</a></li>
-                        <li><a href="">7</a></li>
-                        <li><a href="">8</a></li>
-                        <li><a href="">...</a></li>
-                        <li><a href="">11</a></li>
+                        {% if post_list.has_previous %}
+                            <li><a href="/blogs?p={{ post_list.previous_page_num }}">上一页</a></li>
+                        {% endif %}
+
+                        {% for num in post_list.paginator.page_num_range %}
+                            {% if num == post_list.num %}
+                                <li><a href="/blogs?p={{ num }}" style="font-size: 33px">{{ num }}</a></li>
+                            {% else %}
+                                <li><a href="/blogs?p={{ num }}">{{ num }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if post_list.has_next %}
+                            <li><a href="/blogs?p={{ post_list.next_page_num }}">下一页</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </main>

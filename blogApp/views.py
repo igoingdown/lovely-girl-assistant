@@ -17,6 +17,7 @@ from qiniu import *
 from qiniu_util import upload_to_cloud
 from save_my_doc import save_md_files_into_database
 from little_crawler import LittleCrawler
+from panigator import *
 
 # Create your views here.
 
@@ -55,9 +56,21 @@ def comments_upload(request):
 
 
 def show_blogs(request):
-    tag_lists = Post.objects.all()
+    post_list = Post.objects.all()
+    # TODO: 加入分页功能！
+    try:
+        cur_page = request.GET.get('p')
+    except:
+        cur_page = 1
+    paginator = CustomPaginator(cur_page, 11, post_list, 10)
+    try:
+        paginator = paginator.page(cur_page)
+    except PageNotAnInteger:
+        paginator = paginator.page(1)
+    except EmptyPage:
+        paginator = paginator.page(paginator.num_pages)
     return render(request, 'blogApp/index1.html',
-                  context={'post_list': tag_lists})
+                  context={'post_list': paginator})
 
 
 def submit(request):
@@ -68,8 +81,20 @@ def submit(request):
 
 def show_images(request):
     images_list = GirlImage.objects.all()
+    try:
+        cur_page = int(request.GET.get('p'))
+    except:
+        cur_page = 1
+    paginator = CustomPaginator(cur_page, 51, images_list, 10)
+    try:
+        paginator = paginator.page(cur_page)
+    except PageNotAnInteger:
+        paginator = paginator.page(1)
+    except EmptyPage:
+        paginator = paginator.page(paginator.num_pages)
+
     return render(request, 'blogApp/show-image.html',
-                  context={'images': images_list})
+                  context={'images': paginator})
 
 @csrf_exempt
 def investigate(request):
