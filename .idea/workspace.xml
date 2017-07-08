@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="60bdf728-9a0f-49a2-aef5-bd85397edd63" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/preferred-vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blogApp/views.py" afterPath="$PROJECT_DIR$/blogApp/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sites/settings.py" afterPath="$PROJECT_DIR$/sites/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/blogApp/ajax_test.html" afterPath="$PROJECT_DIR$/templates/blogApp/ajax_test.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/blogApp/index1.html" afterPath="$PROJECT_DIR$/templates/blogApp/index1.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/blogApp/show-image.html" afterPath="$PROJECT_DIR$/templates/blogApp/show-image.html" />
-    </list>
+    <list default="true" id="60bdf728-9a0f-49a2-aef5-bd85397edd63" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.idea/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
