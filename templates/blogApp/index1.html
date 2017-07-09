@@ -30,6 +30,10 @@
     <script src="{% static 'blogApp/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'blogApp/js/pace.min.js' %}"></script>
     <script src="{% static 'blogApp/js/modernizr.custom.js' %}"></script>
+    <script src="{% static 'blogApp/js/hyperdown/Parser.js' %}"></script>
+    <script src="{% static 'blogApp/js/showdown/dist/showdown.min.js' %}"></script>
+
+
 </head>
 
 <body>
@@ -100,6 +104,9 @@
                             </div>
                         </div>
                         <div>{{p.body}}</div>
+
+
+
                     </article>
                 {% empty %}
                     <div class="no-post">暂时还没有发布文章</div>
@@ -250,6 +257,8 @@
 -->
 
 <script src="{% static 'blogApp/js/script.js' %}"></script>
+
+
 
 </body>
 </html>
