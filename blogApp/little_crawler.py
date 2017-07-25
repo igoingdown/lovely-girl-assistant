@@ -48,6 +48,8 @@ class LittleCrawler(object):
 
         header = {"User-Agent": random.choice(my_headers)}
         req = urllib2.Request(self.url, headers=header)
+        print self.url
+        print header
         html = urllib2.urlopen(req).read()
         self.soup = BeautifulSoup(html)
 
